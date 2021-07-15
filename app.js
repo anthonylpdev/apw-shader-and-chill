@@ -2,7 +2,7 @@ import * as THREE from 'three'
 import {OrbitControls} from 'three/examples/jsm/controls/OrbitControls'
 import fragment from './shaders/fragment.glsl'
 import vertex from './shaders/vertex.glsl'
-import testTexture from './texture.jpg'
+import testTexture from './img/psy2.jpg'
 
 export default class Sketch {
   constructor(options) {
@@ -15,9 +15,9 @@ export default class Sketch {
         70,
         this.width / this.height,
         0.01,
-        10,
+        1000,
     )
-    this.camera.position.z = 1
+    this.camera.position.z = 20
 
     this.scene = new THREE.Scene()
 
@@ -26,15 +26,20 @@ export default class Sketch {
     this.container.appendChild(this.renderer.domElement)
     this.controls = new OrbitControls(this.camera, this.renderer.domElement)
 
+    this.raycaster = new THREE.Raycaster();
+    this.mouse = new THREE.Vector2();
+
     this.resize()
     this.addObjects()
     this.render()
-
     this.setUpResize()
+  
   }
 
   addObjects() {
-    this.geometry = new THREE.PlaneBufferGeometry(0.5, 0.5)
+
+    this.geometry = new THREE.SphereBufferGeometry( 5, 32, 32 );
+    
     this.material = new THREE.ShaderMaterial({
       uniforms: {
         uTime: {value: 0.0},
@@ -51,6 +56,9 @@ export default class Sketch {
 
   render() {
     this.material.uniforms.uTime.value = this.clock.getElapsedTime()
+    // this.mesh.rotation.z += 0.01 / 2;
+    // this.mesh.rotation.y += 0.02 / 2 ;
+    // this.mesh.rotation.x += 0.005 / 2; 
     requestAnimationFrame(this.render.bind(this))
 
     this.renderer.render(this.scene, this.camera)
@@ -67,6 +75,8 @@ export default class Sketch {
   setUpResize() {
     window.addEventListener('resize', this.resize.bind(this))
   }
+
+
 }
 
 new Sketch({
