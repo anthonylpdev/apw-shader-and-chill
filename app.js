@@ -1,16 +1,16 @@
 import * as THREE from 'three';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
-import fragment from './shaders/fragment.glsl';
-import vertex from './shaders/vertex.glsl';
-import testTexture from './texture.jpg';
 
-export default class Sketch {
+import Plane from './src/plane';
+
+class Sketch {
   constructor(options) {
     this.clock = new THREE.Clock();
 
     this.container = options.domElement;
-    this.height = this.container.offsetHeight; // test
+    this.height = this.container.offsetHeight;
     this.width = this.container.offsetWidth;
+
     this.camera = new THREE.PerspectiveCamera(
       70,
       this.width / this.height,
@@ -34,25 +34,14 @@ export default class Sketch {
   }
 
   addObjects() {
-    this.geometry = new THREE.PlaneBufferGeometry(0.5, 0.5);
-    this.material = new THREE.ShaderMaterial({
-      uniforms: {
-        uTime: { value: 0.0 },
-        uResolution: { value: new THREE.Vector2() },
-        uTexture: { value: new THREE.TextureLoader().load(testTexture) },
-      },
-      vertexShader: vertex,
-      fragmentShader: fragment,
-    });
-
-    this.mesh = new THREE.Mesh(this.geometry, this.material);
-    this.scene.add(this.mesh);
+    this.plane = new Plane();
+    this.plane.init(this);
   }
 
   render() {
-    this.material.uniforms.uTime.value = this.clock.getElapsedTime();
-    requestAnimationFrame(this.render.bind(this));
+    this.plane.material.uniforms.uTime.value = this.clock.getElapsedTime();
 
+    requestAnimationFrame(this.render.bind(this));
     this.renderer.render(this.scene, this.camera);
   }
 

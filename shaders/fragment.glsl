@@ -2,8 +2,7 @@ uniform sampler2D uTexture;
 uniform float uTime;
 varying vec2 vUv;
 
-void main(){
-
+void main() {
     float variation = sin(uTime);
     vec4 myimage = texture(uTexture, vUv);
 
