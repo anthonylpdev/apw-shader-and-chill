@@ -20,7 +20,7 @@ export default class Sketch {
     )
     this.camera.rotation.reorder('YXZ')
     this.camera.position.x = 0;
-    this.camera.position.z = 40;
+    this.camera.position.z = 20;
     // this.camera.rotation.set(Math.PI * 2, 0, 0);
 
     this.scene = new THREE.Scene()
@@ -30,7 +30,7 @@ export default class Sketch {
       // alpha: true
     })
     this.renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2))
-    this.renderer.setClearColor(0x000000, 1)
+    this.renderer.setClearColor(0xFFFFFF, 1)
     this.container.appendChild(this.renderer.domElement)
     this.controls = new OrbitControls(this.camera, this.renderer.domElement)
 
@@ -39,6 +39,13 @@ export default class Sketch {
     this.render()
 
     this.setUpResize()
+
+    window.addEventListener('mousemove', (event) => {
+      const posX = event.offsetX / this.width;
+      const posY = event.offsetY / this.height;
+      this.material.uniforms.uPosX.value = posX;
+      this.material.uniforms.uPosY.value = -posY + 1;
+    })
 
     // this.gui()
 
@@ -51,13 +58,15 @@ export default class Sketch {
         uTime: {value: 0.0},
         uApply: {value: 1.0},
         uResolution: {value: new THREE.Vector2()},
+        uPosX: {value: 0.0},
+        uPosY: {value: 0.0},
         uTexture: {value: new THREE.TextureLoader().load(testTexture)},
       },
       vertexShader: vertex,
       fragmentShader: fragment,
       side: THREE.DoubleSide,
       // blending: THREE.AdditiveBlending,
-      // transparent: true
+      transparent: true
       //wireframe: true
     })
     console.log(this.geometry, this.material);
