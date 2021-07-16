@@ -16,22 +16,23 @@ export default class Sketch {
         30,
         this.width / this.height,
         0.01,
-        1000,
+        100,
     )
     this.camera.rotation.reorder('YXZ')
     this.camera.position.x = 0;
     this.camera.position.z = 40;
     // this.camera.rotation.set(Math.PI * 2, 0, 0);
-    console.log(this.camera);
 
     this.scene = new THREE.Scene()
 
-    this.renderer = new THREE.WebGLRenderer({antialias: true, alpha: true})
-    this.renderer.setPixelRatio(window.devicePixelRatio)
-    this.renderer.setClearColor('0x555', 1)
+    this.renderer = new THREE.WebGLRenderer({
+      antialias: true,
+      // alpha: true
+    })
+    this.renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2))
+    this.renderer.setClearColor(0x000000, 1)
     this.container.appendChild(this.renderer.domElement)
     this.controls = new OrbitControls(this.camera, this.renderer.domElement)
-
 
     this.resize()
     this.addObjects()
@@ -39,12 +40,12 @@ export default class Sketch {
 
     this.setUpResize()
 
-    this.gui()
+    // this.gui()
 
   }
 
   addObjects() {
-    this.geometry = new THREE.PlaneBufferGeometry(60, 20, 100, 100)
+    this.geometry = new THREE.PlaneBufferGeometry(this.width/100, this.height/100, 100, 100)
     this.material = new THREE.ShaderMaterial({
       uniforms: {
         uTime: {value: 0.0},
@@ -56,7 +57,7 @@ export default class Sketch {
       fragmentShader: fragment,
       side: THREE.DoubleSide,
       // blending: THREE.AdditiveBlending,
-      transparent: true
+      // transparent: true
       //wireframe: true
     })
     console.log(this.geometry, this.material);
