@@ -27,15 +27,17 @@ export default class Sketch {
     this.container.appendChild(this.renderer.domElement)
     this.controls = new OrbitControls(this.camera, this.renderer.domElement)
 
+    this.raycaster = new THREE.Raycaster()
+
     this.resize()
-    this.addObjects()
+    this.addObjects(this)
     this.render()
 
     this.setUpResize()
   }
 
   addObjects() {
-    this.geometry = new THREE.PlaneBufferGeometry(4, 2, 128, 128)
+    this.geometry = new THREE.PlaneBufferGeometry(1, 1, 128, 128)
     this.material = new THREE.ShaderMaterial({
       transparent: true,
       uniforms: {
@@ -44,7 +46,7 @@ export default class Sketch {
         uTexture: { value: new THREE.TextureLoader().load(testTexture) },
         uTextureRepeat: {
           type: 'f',
-          value: new THREE.Vector2(6, 2),
+          value: new THREE.Vector2(1, 1),
         },
       },
       vertexShader: vertex,
