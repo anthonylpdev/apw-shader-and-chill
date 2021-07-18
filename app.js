@@ -3,6 +3,7 @@ import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls'
 import fragment from './shaders/fragment.glsl'
 import vertex from './shaders/vertex.glsl'
 import testTexture from './water.jpg'
+import * as dat from 'dat.gui'
 
 export default class Sketch {
   constructor(options) {
@@ -27,10 +28,10 @@ export default class Sketch {
     this.container.appendChild(this.renderer.domElement)
     this.controls = new OrbitControls(this.camera, this.renderer.domElement)
 
-    this.raycaster = new THREE.Raycaster()
+    this.gui = new dat.GUI()
 
     this.resize()
-    this.addObjects(this)
+    this.addObjects()
     this.render()
 
     this.setUpResize()
@@ -41,11 +42,13 @@ export default class Sketch {
     this.material = new THREE.ShaderMaterial({
       transparent: true,
       uniforms: {
+        uSpeed: { value: 1 },
+        uElevation: { value: 1 },
+        uFrequency: { value: 1 },
         uTime: { value: 0.0 },
         uResolution: { value: new THREE.Vector2() },
         uTexture: { value: new THREE.TextureLoader().load(testTexture) },
         uTextureRepeat: {
-          type: 'f',
           value: new THREE.Vector2(1, 1),
         },
       },
@@ -57,6 +60,32 @@ export default class Sketch {
       this.material.uniforms.uTexture.value.wrapT = THREE.RepeatWrapping
 
     this.mesh = new THREE.Mesh(this.geometry, this.material)
+
+    this.parameters = {
+      speed: 1,
+      elevation: 1,
+      frequency: 1,
+    }
+
+    this.gui
+      .add(this.parameters, 'speed', 0, 10)
+      .onChange(
+        () => (this.material.uniforms.uSpeed.value = this.parameters.speed),
+      )
+
+    this.gui
+      .add(this.parameters, 'elevation', 0, 10)
+      .onChange(
+        () =>
+          (this.material.uniforms.uElevation.value = this.parameters.elevation),
+      )
+
+    this.gui
+      .add(this.parameters, 'frequency', 0, 10)
+      .onChange(
+        () =>
+          (this.material.uniforms.uFrequency.value = this.parameters.frequency),
+      )
     this.scene.add(this.mesh)
   }
 
