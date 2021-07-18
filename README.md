@@ -22,7 +22,7 @@ yarn dev
 
 ## How to use it ?
 
-#### You can tweak the waves's speed, elevation and frequency as you want using `dat.gui`
+You can tweak the wave speed, elevation and frequency as you want using `dat.gui`
 
 <img src="4.gif" width="300">
 <img src="1.png" width="300">
