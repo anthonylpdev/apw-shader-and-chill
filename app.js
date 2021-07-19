@@ -2,7 +2,7 @@ import * as THREE from 'three'
 import {OrbitControls} from 'three/examples/jsm/controls/OrbitControls'
 import fragment from './shaders/fragment.glsl'
 import vertex from './shaders/vertex.glsl'
-import testTexture from './texture.jpg'
+import testTexture from './plop.png'
 
 export default class Sketch {
   constructor(options) {
@@ -11,13 +11,8 @@ export default class Sketch {
     this.container = options.domElement
     this.height = this.container.offsetHeight
     this.width = this.container.offsetWidth
-    this.camera = new THREE.PerspectiveCamera(
-        70,
-        this.width / this.height,
-        0.01,
-        10,
-    )
-    this.camera.position.z = 1
+    this.camera = new THREE.PerspectiveCamera( 75, this.width / this.height,1, 10000 );
+    this.camera.position.z = 1000
 
     this.scene = new THREE.Scene()
 
@@ -34,7 +29,9 @@ export default class Sketch {
   }
 
   addObjects() {
-    this.geometry = new THREE.PlaneBufferGeometry(0.5, 0.5)
+
+    this.geometry = new THREE.PlaneBufferGeometry( this.width, this.height*4 );
+
     this.material = new THREE.ShaderMaterial({
       uniforms: {
         uTime: {value: 0.0},
@@ -44,13 +41,16 @@ export default class Sketch {
       vertexShader: vertex,
       fragmentShader: fragment,
     })
+    
 
     this.mesh = new THREE.Mesh(this.geometry, this.material)
     this.scene.add(this.mesh)
   }
 
+
   render() {
-    this.material.uniforms.uTime.value = this.clock.getElapsedTime()
+    this.material.uniforms.uTime.value = this.clock.getElapsedTime()-1
+ 
     requestAnimationFrame(this.render.bind(this))
 
     this.renderer.render(this.scene, this.camera)

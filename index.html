@@ -15,13 +15,26 @@
             
         }
         #container{
-            background-color: #ccc;
+            background-color: rgb(255, 255, 255);
             width: 100vw;
             height: 100vh;
         }
     </style>
 </head>
 <body>
+
+    <svg style="position: absolute; " viewbox="0 0 100 60">
+        <defs>
+          <mask id="mask" x="0" y="0" width="100" height="100" >
+            <rect x="0" y="0" width="100" height="100" fill="white" />
+            <text text-anchor="middle" x="50" y="30" dy="1">
+                Artichaut
+            </text>
+          </mask>
+        </defs>
+        <rect x="0" y="0" width="100" height="1000" mask="url(#mask)" fill="white" />    
+      </svg>
+
     <div id="container"></div>
 
     <script src="app.js"></script>
