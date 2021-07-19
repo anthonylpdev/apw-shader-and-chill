@@ -36,7 +36,7 @@ export default class Sketch {
     // this.controls.autoRotate = true;
     this.controls.autoRotateSpeed = 2;
     this.controls.enableDamping = true;
-    this.controls.enabled = false;
+    this.controls.enabled = true;
 
     this.resize()
     this.addObjects()
