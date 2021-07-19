@@ -1,17 +1,17 @@
+import './style.scss'
 import * as THREE from 'three'
 import {OrbitControls} from 'three/examples/jsm/controls/OrbitControls'
 import fragment from './shaders/fragment.glsl'
 import vertex from './shaders/vertex.glsl'
-import testTexture from './texture-02.jpg'
+import baseTexture from './texture-02.jpg'
 import guify from 'guify'
 
 export default class Sketch {
   constructor(options) {
     this.clock = new THREE.Clock()
 
-    this.container = options.domElement
-    this.height = this.container.offsetHeight
-    this.width = this.container.offsetWidth
+    this.width = window.innerWidth / 2
+    this.height = window.innerHeight
     this.camera = new THREE.PerspectiveCamera(
         30,
         this.width / this.height,
@@ -20,19 +20,24 @@ export default class Sketch {
     )
     this.camera.rotation.reorder('YXZ')
     this.camera.position.x = 0;
-    this.camera.position.z = 20;
+    this.camera.position.z = 30;
     // this.camera.rotation.set(Math.PI * 2, 0, 0);
 
     this.scene = new THREE.Scene()
 
     this.renderer = new THREE.WebGLRenderer({
       antialias: true,
+      canvas: options.domElement
       // alpha: true
     })
     this.renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2))
     this.renderer.setClearColor(0xFFFFFF, 1)
-    this.container.appendChild(this.renderer.domElement)
     this.controls = new OrbitControls(this.camera, this.renderer.domElement)
+    // this.controls.autoRotate = true;
+    this.controls.autoRotateSpeed = 2;
+    this.controls.enableDamping = true;
+    this.controls.enabled = false;
+    console.log(this.controls);
 
     this.resize()
     this.addObjects()
@@ -52,7 +57,10 @@ export default class Sketch {
   }
 
   addObjects() {
-    this.geometry = new THREE.PlaneBufferGeometry(this.width/100, this.height/100, 100, 100)
+
+    this.loader = new THREE.TextureLoader();
+
+    this.geometry = new THREE.PlaneBufferGeometry(this.width, this.height, 100, 100)
     this.material = new THREE.ShaderMaterial({
       uniforms: {
         uTime: {value: 0.0},
@@ -60,14 +68,14 @@ export default class Sketch {
         uResolution: {value: new THREE.Vector2()},
         uPosX: {value: 0.0},
         uPosY: {value: 0.0},
-        uTexture: {value: new THREE.TextureLoader().load(testTexture)},
+        uTexture: {value: this.loader.load(baseTexture)},
       },
       vertexShader: vertex,
       fragmentShader: fragment,
       side: THREE.DoubleSide,
-      // blending: THREE.AdditiveBlending,
-      transparent: true
-      //wireframe: true
+      // blending: THREE.MultiplyBlending,
+      transparent: true,
+      // wireframe: true
     })
     console.log(this.geometry, this.material);
 
@@ -79,12 +87,12 @@ export default class Sketch {
     this.material.uniforms.uTime.value = this.clock.getElapsedTime()
     requestAnimationFrame(this.render.bind(this))
 
+    this.controls.update();
+
     this.renderer.render(this.scene, this.camera)
   }
 
   resize() {
-    this.width = this.container.offsetWidth
-    this.height = this.container.offsetHeight
     this.renderer.setSize(this.width, this.height)
     this.camera.aspect = this.width / this.height
     this.camera.updateProjectionMatrix()
@@ -121,5 +129,5 @@ export default class Sketch {
 }
 
 new Sketch({
-  domElement: document.getElementById('container'),
+  domElement: document.getElementById('decoration'),
 })

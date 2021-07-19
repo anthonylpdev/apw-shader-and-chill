@@ -5,25 +5,36 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <style>
-        *{
-            margin: 0;
-            padding: 0;
-        }
-        canvas{
-            display: block;
-            
-        }
-        #container{
-            background-color: #ccc;
-            width: 100vw;
-            height: 100vh;
-        }
-    </style>
 </head>
 <body>
-    <div id="container"></div>
-
+    <main>
+        <header>
+            <nav class="container">
+                <ul>
+                    <li><a href="#">Work</a></li>
+                    <li><a href="#">About us</a></li>
+                    <li><a href="#">Contact</a></li>
+                </ul>
+            </nav>
+        </header>
+        <section class="middle container">
+            <div class="part-left">
+                <div class="infographic">
+                    <span>01</span>
+                    <div class="progress">
+                        <span class="complete"></span>
+                    </div>
+                    <span>03</span>
+                </div>
+            </div>
+            <div class="part-right">
+                <h1>We make<br />new <span>brands</span></h1>
+                <p>Eros sed arcu, ullamcorper hendrerit nunc natoque nec pellentesque. Quam rhoncus, eleifend aliquet tempor id eleifend faucibus magnis sit.</p>
+                <a href="#">explore case</a>
+            </div>
+        </section>
+    </main>
+    <canvas id="decoration"></canvas>
     <script src="app.js"></script>
 </body>
 </html>

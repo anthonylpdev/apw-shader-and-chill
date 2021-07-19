@@ -1,0 +1,136 @@
+@import "~reset-css/sass/reset";
+@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;700&display=swap");
+body {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  width: 100vw;
+  height: 100vh;
+  color: #ffffff;
+  font-family: "Roboto", sans-serif;
+  // background-color: #030F21;
+  background-color: #050914;
+  main {
+    position: relative;
+    z-index: 10;
+    .container {
+      width: 1180px;
+    }
+    header {
+      margin-top: 80px;
+      width: 100%;
+      nav {
+        padding: 40px 0;
+        ul {
+          width: 100%;
+          display: flex;
+          list-style: none;
+          justify-content: flex-end;
+          li {
+            a {
+              color: #ffffff;
+              text-decoration: none;
+              font-style: normal;
+              font-weight: 300;
+              font-size: 18px;
+              line-height: 21px;
+              text-align: center;
+            }
+            &:not(:first-child) {
+              a {
+                padding-left: 16px;
+              }
+            }
+          }
+        }
+      }
+    }
+    section {
+      &.middle {
+        padding-top: 128px;
+        display: flex;
+        .part {
+          &-left {
+            width: 1/12 * 100%;
+            display: flex;
+            justify-content: flex-start;
+            .infographic {
+              display: flex;
+              flex-direction: column;
+              justify-content: center;
+              align-items: center;
+              height: 100%;
+              .progress {
+                margin: 16px 0;
+                position: relative;
+                background-color: #FFF;
+                height: 50%;
+                width: 2px;
+                .complete {
+                  position: absolute;
+                  top: 0;
+                  left: 0;
+                  background-color: #D0AB62;
+                  height: 1/3 * 100%;
+                  width: 2px;
+                }
+              }
+            }
+          }
+          &-right {
+            flex-grow: 1;
+          }
+        }
+        h1 {
+          font-style: normal;
+          font-weight: 700;
+          font-size: 120px;
+          line-height: 140px;
+          text-transform: uppercase;
+          text-shadow: 0 4px 4px rgba(0, 0, 0, 0.3);
+          span {
+            color: #D0AB62;
+          }
+        }
+        p {
+          width: 1/3 * 100%;
+          font-style: normal;
+          font-weight: 100;
+          font-size: 16px;
+          line-height: 24px;
+          text-transform: uppercase;
+          padding-top: 48px;
+        }
+        a {
+          display: block;
+          font-style: normal;
+          font-weight: 300;
+          font-size: 16px;
+          line-height: 24px;
+          text-transform: uppercase;
+          color: #D0AB62;
+          margin-top: 48px;
+          text-decoration: none;
+          position: relative;
+          &:after {
+            content: "";
+            background-color: #D0AB62;
+            width: 47px;
+            height: 1px;
+            position: absolute;
+            left: 0;
+            bottom: -16px;
+          }
+        }
+      }
+    }
+  }
+  canvas {
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 50vw;
+    width: 100vw;
+    height: 100vh;
+  }
+}

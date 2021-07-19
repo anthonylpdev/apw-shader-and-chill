@@ -1,7 +1,6 @@
 precision mediump float;
 
 #pragma glslify: snoise3 = require(glsl-noise/simplex/3d)
-#pragma glslify: curlNoise = require(glsl-curl-noise/curl)
 
 uniform float uTime;
 uniform vec2 uResolution;
