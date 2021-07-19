@@ -16,7 +16,7 @@ export default class Sketch {
         30,
         this.width / this.height,
         0.01,
-        100,
+        80,
     )
     this.camera.rotation.reorder('YXZ')
     this.camera.position.x = 0;
@@ -37,7 +37,6 @@ export default class Sketch {
     this.controls.autoRotateSpeed = 2;
     this.controls.enableDamping = true;
     this.controls.enabled = false;
-    console.log(this.controls);
 
     this.resize()
     this.addObjects()
@@ -77,7 +76,6 @@ export default class Sketch {
       transparent: true,
       // wireframe: true
     })
-    console.log(this.geometry, this.material);
 
     this.mesh = new THREE.Mesh(this.geometry, this.material)
     this.scene.add(this.mesh)
@@ -93,6 +91,9 @@ export default class Sketch {
   }
 
   resize() {
+    this.width = window.innerWidth / 2
+    this.height = window.innerHeight
+
     this.renderer.setSize(this.width, this.height)
     this.camera.aspect = this.width / this.height
     this.camera.updateProjectionMatrix()
