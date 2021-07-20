@@ -1,17 +1,18 @@
-uniform sampler2D uTexture;
-uniform float uTime;
+uniform float time;
+uniform float progress;
+uniform sampler2D texture1;
+uniform vec4 resolution;
 varying vec2 vUv;
-
+uniform sampler2D psy;
+varying vec3 vPosition;
 varying vec3 vNormal;
 float PI = 3.141592653589793238;
-
-
 
 vec4 permute(vec4 x){return mod(((x*34.0)+1.0)*x, 289.0);}
 vec4 taylorInvSqrt(vec4 r){return 1.79284291400159 - 0.85373472095314 * r;}
 vec4 fade(vec4 t) {return t*t*t*(t*(t*6.0-15.0)+10.0);}
 // Classic Perlin noise, periodic version
-float cnoise(vec4 P, vec4 rep){
+float cnoise(vec4 P, vec4 rep){ 
   vec4 Pi0 = mod(floor(P), rep); // Integer part modulo rep
   vec4 Pi1 = mod(Pi0 + 1.0, rep); // Integer part + 1 mod rep
   vec4 Pf0 = fract(P); // Fractional part for interpolation
@@ -142,10 +143,21 @@ float cnoise(vec4 P, vec4 rep){
   return 2.2 * n_xyzw;
 }
 
-void main(){
-    vec4 myimage = texture(uTexture, vUv);
+void main()	{
+	float diff = dot(vec3(1.), vNormal);
+	
+	float phi = acos(vNormal.y);
+	float angle = atan(vNormal.x, vNormal.z);
+	vec2 finalUV = vec2( (angle+PI)/(2.*PI) ,phi/PI);
+	
+	vec2 vUv = vec2(dot(vec3(1.), vNormal), dot(vec3(-1., 0., 1.), vNormal));
+	
+	vUv = fract(finalUV + vec2(time/40., time/20.)); 
 
-    vec4 txt = texture2D(uTexture, vUv + 0.2*cnoise(vec4(vUv*2., uTime/2., 0.), vec4(10.)));
+	vec4 txt = texture2D(psy, vUv + 0.2*cnoise(vec4(vUv*20., time/10., 0.), vec4(5.)));
 
-    gl_FragColor = txt;
+	gl_FragColor = vec4(vUv, 0., 1.); 
+
+	gl_FragColor = txt; 
+	//gl_FragColor = vec4(vNormal, 1.0);
 }
