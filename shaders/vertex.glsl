@@ -15,16 +15,6 @@ void main(){
     vUv = uv;
     vPosition = position;
 
-    float frequency = 0.01;
-
-    float factor = snoise3(
-        vec3(
-            vPosition.x * frequency * 20.5,
-            vPosition.y * frequency * 20.5,
-            vPosition.z * frequency * 20.5
-        )
-    ) * 100.;
-
     gl_Position = projectionMatrix * modelViewMatrix * vec4(
         position.x,
         position.y,

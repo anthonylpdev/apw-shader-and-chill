@@ -23,18 +23,7 @@ void main(){
         )
     ) * 100.;
 
-
-    // float variation = sin(uTime);
     vec4 myimage = texture(uTexture, vUv * factor / 10.);
-
-    // vec2 toto = lengt(vUv, 1.0);
-
-    vec2 st = gl_FragCoord.xy/uResolution;
-    // float pct = distance(st,vec2(0.5));
-    float di = distance(vUv, vec2(uPosX, uPosY));
-
-    // vec4 myimage = texture(uTexture, vUv);
-    // vec2 debug = vUv - vec2(0.);
 
     gl_FragColor = vec4(myimage.rgb, 1.);
 }

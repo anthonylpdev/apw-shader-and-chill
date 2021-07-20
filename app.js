@@ -17,7 +17,7 @@ export default class Sketch {
         30,
         this.width / this.height,
         0.01,
-        80,
+        800,
     )
     this.camera.rotation.reorder('YXZ')
     this.camera.position.x = 0
@@ -40,7 +40,7 @@ export default class Sketch {
     // this.controls.autoRotate = true;
     this.controls.autoRotateSpeed = 2
     this.controls.enableDamping = true
-    this.controls.enabled = false
+    this.controls.enabled = true
 
     this.resize()
     this.addObjects()
@@ -133,8 +133,6 @@ export default class Sketch {
   loadManager() {
 
     this.manager.onLoad = (event) => {
-      console.log('Loading complete!')
-
       gsap.timeline().to('#loading-label', {
         alpha: 0,
         y: -20,
