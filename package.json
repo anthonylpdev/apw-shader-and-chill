@@ -4,6 +4,7 @@
     "glsl-noise": "^0.0.0",
     "glsl-voronoi-noise": "^1.2.2",
     "glslify": "^7.1.1",
+    "gsap": "^3.7.1",
     "reset-css": "^5.0.1",
     "three": "^0.130.1"
   },

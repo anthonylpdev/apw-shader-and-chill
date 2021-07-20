@@ -7,9 +7,17 @@
     <title>Document</title>
 </head>
 <body>
+    <aside id="loader-container" class="loader">
+        <svg class="loading-ended" width="48" height="48" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M17.214 0C7.707 0 0 7.707 0 17.214c.01 9.502 7.711 17.203 17.214 17.214 9.507 0 17.214-7.707 17.214-17.214C34.428 7.707 26.72 0 17.214 0zm0 31.78c-8.045 0-14.566-6.522-14.566-14.566.01-8.04 6.525-14.556 14.566-14.566 8.044 0 14.565 6.521 14.565 14.566 0 8.044-6.52 14.565-14.565 14.565z" fill="#D0AB62"/>
+            <path d="M39.724 31.78a7.945 7.945 0 107.945 7.944 7.953 7.953 0 00-7.945-7.945zm0 13.24a5.297 5.297 0 110-10.592 5.297 5.297 0 010 10.593z" fill="#fff"/>
+        </svg>
+        <span class="hide-during-load" id="loading-label">Loading</span>
+        <a id="start-label" class="start-label hide-during-load loading-ended" href="#">This is an experimental UI<br />Click here to start</a>
+    </aside>
     <main>
         <header>
-            <nav class="container">
+            <nav class="container hide-during-load">
                 <ul>
                     <li><a href="#">Work</a></li>
                     <li><a href="#">About us</a></li>
@@ -18,7 +26,7 @@
             </nav>
         </header>
         <section class="middle container">
-            <div class="part-left">
+            <div class="part-left hide-during-load">
                 <div class="infographic">
                     <span>01</span>
                     <div class="progress">
@@ -28,9 +36,9 @@
                 </div>
             </div>
             <div class="part-right">
-                <h1>We make<br />new <span>brands</span></h1>
-                <p>Eros sed arcu, ullamcorper hendrerit nunc natoque nec pellentesque. Quam rhoncus, eleifend aliquet tempor id eleifend faucibus magnis sit.</p>
-                <a href="#">explore case</a>
+                <h1 class="hide-during-load">We make<br />new <span>brands</span></h1>
+                <p class="hide-during-load">Eros sed arcu, ullamcorper hendrerit nunc natoque nec pellentesque. Quam rhoncus, eleifend aliquet tempor id eleifend faucibus magnis sit.</p>
+                <a class="hide-during-load" href="#">explore case</a>
             </div>
         </section>
     </main>

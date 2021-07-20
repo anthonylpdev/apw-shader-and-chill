@@ -101,12 +101,12 @@ body {
         }
         p {
           width: calc(1/3 * 100%);
+          padding-top: 48px;
           font-style: normal;
           font-weight: 100;
           font-size: 16px;
           line-height: 24px;
           text-transform: uppercase;
-          padding-top: 48px;
         }
         a {
           display: block;
@@ -139,5 +139,37 @@ body {
     left: 50vw;
     width: 100vw;
     height: 100vh;
+  }
+  aside {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 100;
+    height: 100vh;
+    width: 100vw;
+    background-color: #050914;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    span, a {
+      text-decoration: none;
+      display: block;
+      color: #ffffff;
+      font-style: normal;
+      font-weight: 100;
+      font-size: 16px;
+      line-height: 24px;
+      text-transform: uppercase;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      padding-top: 130px;
+      text-align: center;
+    }
+  }
+  .hide-during-load {
+    opacity: 0;
   }
 }
